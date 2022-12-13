@@ -4,6 +4,9 @@ class Game {
         this.gameStatusFinal = document.getElementById('gameStatusFinal');
         this.xWins = document.getElementById('xWins');
         this.oWins = document.getElementById('oWins');
+        this.submitBtn = document.getElementById('submitBtn');
+        this.playerOne = document.getElementById('playerOne');
+        this.playerTwo = document.getElementById('playerTwo');
         this.winCount = {
             x: 0,
             o: 0,
@@ -24,37 +27,45 @@ class Game {
             [0,3,6],
             [1,4,7],
             [2,5,8],
-            [2,4,6],
+            [2,4,6]
         ];
 
-        this.gameRestartBtn = document.getElementById('gameRestart')
+        this.players ={
+            player1: 'Player 1',
+            player2: 'Player 2'
+        };
+
+        this.gameRestartBtn = document.getElementById('gameRestart');
 
     }
 
     init() {
+        this.playerOne.innerText = this.players.player1
+        this.playerTwo.innerText = this.players.player2
+        this.getPlayersNames();
         this.currPlayerTurn();
         this.handleCellClicked();
         // this.handleCellPlayed();
         this.gameRestartBtn.addEventListener('click', ()=> {
             this.restartGame()
-        })
-    }
+        });
+    };
 
     // methods
     currPlayerTurn() {
         const message = `It's ${this.currentPlayer}'s turn`;
         return this.gameStatus.innerText = message;
-    }
+    };
 
     drawMessage() {
         const message = `Game ended in a draw`;
         return this.gameStatus.innerText = message;
-    }
+    };
 
     winngingMessage() {
         const message = `Player ${this.currentPlayer} has won!`;
         return this.gameStatus.innerText = message;
-    }
+    };
 
     // statusDisplay() {
     //     const gameStatus = this.gameStatus
@@ -107,7 +118,7 @@ class Game {
         }
 
         if (gameWon) {
-            const tallyMark = 'x'
+            const tallyMark = '√'
             this.winngingMessage();
             const winner = this.currentPlayer
             if( winner == 'X') {
@@ -158,14 +169,32 @@ class Game {
         let oWinTotal = this.winCount.o;
         let xWinTotal = this.winCount.x;
 
-        if(oWinTotal == 10) {
-            this.gameStatus.innerText = 'PLAYER O IS THE GRAND CHAMPION!'
-        } else if(xWinTotal == 10) {
-            this.gameStatus.innerText = 'PLAYER X IS THE GRAND CHAMPION!'
+        if(oWinTotal == 3) {
+            this.gameStatus.innerText = `${this.players.player2} IS THE GRAND CHAMPION!`
+        } else if(xWinTotal == 3) {
+            this.gameStatus.innerText = `${this.players.player1} IS THE GRAND CHAMPION!`
         }
 
         this.gameActive = false
-        this.restartGame();
+        // this.restartGame();
+    }
+
+    getPlayersNames() {
+        const submitBtn = this.submitBtn;
+        const playerOne = this.playerOne;
+        const playerTwo = this.playerTwo;
+
+        
+        submitBtn.addEventListener('click', (e)=> {
+            e.preventDefault()
+            const player1Name = document.getElementById('player1').value;
+            const player2Name = document.getElementById('player2').value;
+            // console.log(player1Name, player2Name);
+            this.players.player1 = player1Name;
+            this.players.player2 = player2Name;
+            playerOne.innerText = this.players.player1;
+            playerTwo.innerText = this.players.player2;
+        })
     }
 }
 
