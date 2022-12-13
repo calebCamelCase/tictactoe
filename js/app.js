@@ -169,9 +169,9 @@ class Game {
         let oWinTotal = this.winCount.o;
         let xWinTotal = this.winCount.x;
 
-        if(oWinTotal == 3) {
+        if(oWinTotal == 10) {
             this.gameStatus.innerText = `${this.players.player2} IS THE GRAND CHAMPION!`
-        } else if(xWinTotal == 3) {
+        } else if(xWinTotal == 10) {
             this.gameStatus.innerText = `${this.players.player1} IS THE GRAND CHAMPION!`
         }
 
